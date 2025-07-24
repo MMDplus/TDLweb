@@ -5,7 +5,14 @@ todos = functions.get_todos()
 
 
 for i in todos:
+
     if todos.count(i) > 1:
+        todos.remove(i)
+        functions.write_todos(todos)
+        st.rerun()
+
+for i in todos:
+    if i == '\n':
         todos.remove(i)
         functions.write_todos(todos)
         st.rerun()
@@ -32,8 +39,12 @@ with col2:
 with st.expander("Edit"):
     select = st.radio("Select a todo to edit:",
                        todos, key="selected_todo")
-    text = st.session_state["selected_todo"]
-    st.text_input("Edit todo here:",
-                   value=text, key="edited_todo",
-                   on_change= functions.edit)
-    text = ""
+    edited_text = st.session_state["selected_todo"]
+
+    if edited_text == None:
+        pass
+    else:
+        st.text_input("Edit todo here:",
+                    value=edited_text, key="edited_todo",
+                    on_change= functions.edit)
+        edited_text = ""
