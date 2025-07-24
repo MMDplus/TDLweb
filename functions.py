@@ -38,3 +38,11 @@ def clear():
         del st.session_state[__i__]
     todos.clear()
     write_todos(todos)
+
+def edit():
+    todos = get_todos()
+    todo_to_edit = st.session_state['selected_todo']
+    index = todos.index(todo_to_edit)
+    new_todo = st.session_state["edited_todo"]
+    todos[index] = new_todo + '\n'
+    write_todos(todos)
